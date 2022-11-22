@@ -27,5 +27,15 @@ class DatabaseSeeder extends Seeder
             'institution_id' => null,
             'role_id' => 2
         ]);
+
+        \App\Models\User::factory()->create([
+            'name' => fake()->name(),
+            'email' => 'user@dispendik.com',
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'date_of_birth' => fake()->date(),
+            'phone_number' => fake()->phoneNumber(),
+            'institution_id' => 2,
+            'role_id' => 2
+        ]);
     }
 }
