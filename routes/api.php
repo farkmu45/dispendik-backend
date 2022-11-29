@@ -22,6 +22,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('institutions', InstitutionController::class)->except('show');
     Route::get('/profile', [AuthController::class, 'getProfile'])->name('get.profile');
     Route::get('/profile', [AuthController::class, 'updateProfile'])->name('update.profile');
+
+
+    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 Route::middleware('guest')->group(function () {
