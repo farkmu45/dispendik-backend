@@ -41,9 +41,9 @@ class ActivityController extends Controller
     public function store(CreateActivityRequest $request)
     {
         $data = $request->validated();
-        $url = $request->file('picture')->store('activity_pictures');
-        $data['picture'] = $url;
-        $data['institution_id'] = 1;
+        $url = $request->file('picture')->store('public/activity_pictures');
+        $data['picture'] = str_replace('public/', '', $url);
+        $data['institution_id'] = $request->user()->institution_id;
 
         return new ActivityResource(Activity::create($data));
     }

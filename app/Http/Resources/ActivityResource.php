@@ -11,7 +11,7 @@ class ActivityResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'picture' => $this->picture,
+            'picture' => url('storage/' . $this->picture),
             'date' => $this->date,
             'description' => $this->description,
             'institution' => $this->institution->name,
