@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterUserRequest;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\UserWithoutTokenResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -20,7 +21,7 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        if (! $user || ! Hash::check($request->password, $user->password)) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
                 'email' => [__('auth.failed')],
             ]);
@@ -34,7 +35,6 @@ class AuthController extends Controller
         $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
         $user = User::create($data);
-
         return ['data' => $user];
     }
 
@@ -51,6 +51,6 @@ class AuthController extends Controller
 
     public function getProfile(Request $request)
     {
-        return $request->user();
+        return new UserWithoutTokenResource($request->user());
     }
 }
