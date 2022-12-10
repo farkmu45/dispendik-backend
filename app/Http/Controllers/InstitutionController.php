@@ -10,7 +10,9 @@ class InstitutionController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(Institution::class);
+        $this->authorizeResource(Institution::class, null, [
+            'except' => ['index', 'show'],
+        ]);
     }
 
     public function index()

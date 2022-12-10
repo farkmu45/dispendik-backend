@@ -17,13 +17,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('institutions', [InstitutionController::class, 'index']);
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('activities', ActivityController::class);
-    Route::apiResource('institutions', InstitutionController::class)->except('show');
+    Route::apiResource('institutions', InstitutionController::class)->except(['show',  'index']);
     Route::get('/profile', [AuthController::class, 'getProfile'])->name('get.profile');
     Route::post('/profile', [AuthController::class, 'updateProfile'])->name('update.profile');
-
-
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 });
 
