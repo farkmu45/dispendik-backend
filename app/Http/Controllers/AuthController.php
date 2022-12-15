@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegisterUserRequest;
+use App\Http\Requests\UpdateProfileRequest;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserWithoutTokenResource;
 use App\Models\User;
@@ -47,10 +48,17 @@ class AuthController extends Controller
         ];
     }
 
-    // Profile related func
-
     public function getProfile(Request $request)
     {
         return new UserWithoutTokenResource($request->user());
+    }
+
+    public function updateProfile(UpdateProfileRequest $request)
+    {
+        $data = $request->validated();
+        $request->user()->update($data);
+        return [
+            'data' => $request->user()
+        ];
     }
 }
