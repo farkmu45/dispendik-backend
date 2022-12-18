@@ -7,7 +7,10 @@ use App\Http\Requests\UpdateActivityRequest;
 use App\Http\Resources\ActivityCollection;
 use App\Http\Resources\ActivityResource;
 use App\Models\Activity;
+use App\Models\User;
+use App\Notifications\ActivityCreated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class ActivityController extends Controller
 {
@@ -45,6 +48,8 @@ class ActivityController extends Controller
         $data['picture'] = str_replace('public/', '', $url);
         $data['institution_id'] = $request->user()->institution_id;
 
+        $users = User::where('institution_id', $request->user()->institution_id)->get();
+        Notification::send($users, new ActivityCreated());
         return new ActivityResource(Activity::create($data));
     }
 
