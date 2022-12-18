@@ -55,8 +55,13 @@ class ActivityController extends Controller
 
     public function update(UpdateActivityRequest $request, Activity $activity)
     {
-        $activity->update($request->validated());
+        $data = $request->validated();
+        if ($request->file('picture')) {
+            $url = $request->file('picture')->store('public/activity_pictures');
+            $data['picture'] = str_replace('public/', '', $url);
+        }
 
+        $activity->update($request->validated());
         return new ActivityResource($activity);
     }
 
