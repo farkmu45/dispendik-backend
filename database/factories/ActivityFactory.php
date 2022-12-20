@@ -22,6 +22,7 @@ class ActivityFactory extends Factory
             'date' => fake()->date(),
             'institution_id' => fake()->numberBetween(1, 10),
             'description' => fake()->sentence(),
+            'user_id' => fake()->numberBetween(1, 8)
         ];
     }
 }

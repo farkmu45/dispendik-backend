@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -18,6 +19,7 @@ return new class extends Migration
             $table->string('name', 150);
             $table->string('picture');
             $table->date('date');
+            $table->foreignIdFor(User::class);
             $table->string('description', 200)->nullable();
             $table->timestamps();
         });

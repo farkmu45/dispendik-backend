@@ -53,7 +53,7 @@ class ActivityPolicy
      */
     public function update(User $user, Activity $activity)
     {
-        return $user->institution_id == $activity->institution_id;
+        return $user->id == $activity->user_id;
     }
 
     /**
@@ -65,7 +65,7 @@ class ActivityPolicy
      */
     public function delete(User $user, Activity $activity)
     {
-        return $user->institution_id == $activity->institution_id;
+        return $user->id == $activity->user_id;
     }
 
     /**

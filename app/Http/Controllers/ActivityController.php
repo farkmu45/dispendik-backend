@@ -32,7 +32,7 @@ class ActivityController extends Controller
             return new ActivityCollection(
                 $activities->whereDate('created_at', $request->query('created_at'))
                     ->latest()
-                    ->paginate(15, ['id', 'name'])
+                    ->paginate(15, ['id', 'name', 'user_id'])
             );
         }
 
@@ -40,13 +40,13 @@ class ActivityController extends Controller
             return new ActivityCollection(
                 $activities->whereDate('date', $request->query('date'))
                     ->latest()
-                    ->paginate(15, ['id', 'name'])
+                    ->paginate(15, ['id', 'name', 'user_id'])
             );
         }
 
         return new ActivityCollection(
             $activities->latest()
-                ->paginate(15, ['id', 'name'])
+                ->paginate(15, ['id', 'name', 'user_id'])
         );
     }
 
@@ -60,7 +60,7 @@ class ActivityController extends Controller
         $users = User::where('institution_id', $request->user()->institution_id)->get();
         Notification::send($users, new ActivityCreated());
 
-        return new ActivityResource(Activity::create($data));
+        return new ActivityResource($request->user()->activities()->create($data));
     }
 
     public function show(Activity $activity)
@@ -76,7 +76,7 @@ class ActivityController extends Controller
             $data['picture'] = str_replace('public/', '', $url);
         }
 
-        $activity->update($request->validated());
+        $activity->update($data);
 
         return new ActivityResource($activity);
     }

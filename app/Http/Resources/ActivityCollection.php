@@ -12,6 +12,7 @@ class ActivityCollection extends ResourceCollection
             fn ($activity) => [
                 'id' => $activity->id,
                 'name' => $activity->name,
+                'is_owner' => $activity->user_id == auth()->user()->id
             ]
         );
     }
