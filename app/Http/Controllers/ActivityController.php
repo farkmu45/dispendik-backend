@@ -28,9 +28,19 @@ class ActivityController extends Controller
             $activities->where('institution_id', $user->institution_id);
         }
 
+        if ($request->query('created_at')) {
+            return new ActivityCollection(
+                $activities->whereDate('created_at', $request->query('created_at'))
+                    ->latest()
+                    ->paginate(15, ['id', 'name'])
+            );
+        }
+
+
         if ($request->query('date')) {
             return new ActivityCollection(
                 $activities->whereDate('date', $request->query('date'))
+                    ->latest()
                     ->paginate(15, ['id', 'name'])
             );
         }
