@@ -7,13 +7,10 @@ use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\RecapController;
 use Illuminate\Support\Facades\Route;
 
-
 Route::get('institutions', [InstitutionController::class, 'index']);
-
 
 Route::get('recap', [RecapController::class, 'index'])
     ->middleware('auth:sanctum')->name('recap.get');
-
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('activities', ActivityController::class);

@@ -15,7 +15,7 @@ class UserResource extends JsonResource
             'phone_number' => $this->phone_number,
             'institution_id' => $this->institution_id,
             'token' => $this->createToken($request->getClientIp())->plainTextToken,
-            'role_id' => $this->role_id
+            'role_id' => $this->role_id,
         ];
     }
 }

@@ -14,9 +14,9 @@ class RecapCollection extends ResourceCollection
                 fn ($activity) => [
                     'name' => $activity->name,
                     'date' => $activity->date,
-                    'description' => $activity->description
+                    'description' => $activity->description,
                 ]
-            )
+            ),
         ];
     }
 }

@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\RecapCollection;
-use App\Http\Resources\RecapResource;
-use Illuminate\Support\Str;
 use App\Models\Activity;
-use App\Models\Institution;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use PhpOffice\PhpWord\TemplateProcessor;
 
 class RecapController extends Controller
@@ -26,18 +22,17 @@ class RecapController extends Controller
                 'date',
                 [now()->startOfWeek()->format('Y-m-d'), now()->endOfWeek()->format('Y-m-d')]
             );
-        } else if ($type === 'monthly') {
+        } elseif ($type === 'monthly') {
             $activities->whereBetween(
                 'date',
                 [now()->startOfMonth()->format('Y-m-d'), now()->endOfMonth()->format('Y-m-d')]
             );
-        } else if ($type === 'yearly') {
+        } elseif ($type === 'yearly') {
             $activities->whereBetween(
                 'date',
                 [now()->startOfYear()->format('Y-m-d'), now()->endOfYear()->format('Y-m-d')]
             );
         }
-
 
         $data = [
             'institution' => auth()->user()->institution->name,
@@ -46,20 +41,20 @@ class RecapController extends Controller
                     'id' => $index + 1,
                     'name' => $activity->name,
                     'date' => $activity->date,
-                    'description' => $activity->description
+                    'description' => $activity->description,
                 ]
-            )
+            ),
         ];
 
-        $filename = date('y-m-d', time()) . '_' . Str::random(5) . '.docx';
+        $filename = date('y-m-d', time()).'_'.Str::random(5).'.docx';
 
-        $templateProcessor = new TemplateProcessor(storage_path($type . 'Recap.docx'));
+        $templateProcessor = new TemplateProcessor(storage_path($type.'Recap.docx'));
         $templateProcessor->setValue('institution', $data['institution']);
         $templateProcessor->cloneRowAndSetValues('id', $data['activities']->toArray());
         $file = $templateProcessor->save($filename);
 
         return response()->download($file, $filename, [
-            'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
         ]);
     }
 }

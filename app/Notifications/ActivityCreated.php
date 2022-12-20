@@ -2,9 +2,9 @@
 
 namespace App\Notifications;
 
+use Illuminate\Notifications\Notification;
 use NotificationChannels\ExpoPushNotifications\ExpoChannel;
 use NotificationChannels\ExpoPushNotifications\ExpoMessage;
-use Illuminate\Notifications\Notification;
 
 class ActivityCreated extends Notification
 {
@@ -17,7 +17,7 @@ class ActivityCreated extends Notification
     {
         return ExpoMessage::create()
             ->enableSound()
-            ->title("Pemberitahuan")
-            ->body("Aktivitas baru telah ditambahkan");
+            ->title('Pemberitahuan')
+            ->body('Aktivitas baru telah ditambahkan');
     }
 }

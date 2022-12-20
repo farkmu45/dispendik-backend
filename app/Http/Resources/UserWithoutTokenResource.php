@@ -15,7 +15,7 @@ class UserWithoutTokenResource extends JsonResource
             'phone_number' => $this->phone_number,
             'institution_id' => $this->institution_id,
             'institution' => $this->institution->name,
-            'role_id' => $this->role_id
+            'role_id' => $this->role_id,
         ];
     }
 }

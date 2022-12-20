@@ -3,13 +3,11 @@
 namespace App\Http\Requests;
 
 use App\Models\User;
-use Illuminate\Validation\Rule;
-
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateProfileRequest extends FormRequest
 {
-
     public function rules()
     {
         return [
@@ -17,7 +15,7 @@ class UpdateProfileRequest extends FormRequest
             'email' => ['email', 'max:255', Rule::unique(User::class)->ignore($this->user()->id)],
             'date_of_birth' => 'date|required',
             'phone_number' => 'string|required',
-            'institution_id' => ''
+            'institution_id' => '',
         ];
     }
 

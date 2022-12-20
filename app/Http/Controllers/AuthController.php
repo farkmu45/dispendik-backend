@@ -22,7 +22,7 @@ class AuthController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
+        if (! $user || ! Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
                 'email' => [__('auth.failed')],
             ]);
@@ -36,6 +36,7 @@ class AuthController extends Controller
         $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
         $user = User::create($data);
+
         return ['data' => $user];
     }
 
@@ -57,8 +58,9 @@ class AuthController extends Controller
     {
         $data = $request->validated();
         $request->user()->update($data);
+
         return [
-            'data' => $request->user()
+            'data' => $request->user(),
         ];
     }
 }

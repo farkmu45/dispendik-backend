@@ -36,7 +36,6 @@ class ActivityController extends Controller
             );
         }
 
-
         if ($request->query('date')) {
             return new ActivityCollection(
                 $activities->whereDate('date', $request->query('date'))
@@ -60,6 +59,7 @@ class ActivityController extends Controller
 
         $users = User::where('institution_id', $request->user()->institution_id)->get();
         Notification::send($users, new ActivityCreated());
+
         return new ActivityResource(Activity::create($data));
     }
 
@@ -77,6 +77,7 @@ class ActivityController extends Controller
         }
 
         $activity->update($request->validated());
+
         return new ActivityResource($activity);
     }
 

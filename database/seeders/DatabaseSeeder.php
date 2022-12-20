@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             'date_of_birth' => fake()->date(),
             'phone_number' => fake()->phoneNumber(),
             'institution_id' => null,
-            'role_id' => 2
+            'role_id' => 2,
         ]);
 
         \App\Models\User::factory()->create([
@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
             'date_of_birth' => fake()->date(),
             'phone_number' => fake()->phoneNumber(),
             'institution_id' => 2,
-            'role_id' => 1
+            'role_id' => 1,
         ]);
     }
 }

@@ -17,7 +17,7 @@ class CheckTokenAndAddToHeaderMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @param Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return Response|RedirectResponse
      */
@@ -28,6 +28,7 @@ class CheckTokenAndAddToHeaderMiddleware
             Log::debug('token from http param', [$all['_token']]);
             $request->headers->set('Authorization', sprintf('%s %s', 'Bearer', $all['_token']));
         }
+
         return $next($request);
     }
 }
