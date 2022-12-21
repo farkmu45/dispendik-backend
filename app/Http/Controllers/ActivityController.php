@@ -57,7 +57,9 @@ class ActivityController extends Controller
         $data['picture'] = str_replace('public/', '', $url);
         $data['institution_id'] = $request->user()->institution_id;
 
-        $users = User::where('institution_id', $request->user()->institution_id)->get();
+        $users = User::where('institution_id', $request->user()->institution_id)
+            ->orWhere('role_id', 2)->get();
+
         Notification::send($users, new ActivityCreated());
 
         return new ActivityResource($request->user()->activities()->create($data));
